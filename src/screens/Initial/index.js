@@ -44,7 +44,7 @@ export default function Initial({ navigation }) {
                     style={styles.button_registration}
                     onPress={ () => { navigation.navigate('Registration') }}
                 >
-                    <Text style={{ color: '#000' , fontSize: 20 }}> Registro </Text>
+                    <Text style={{ color: '#000' , fontSize: 20 }}> Registra-se </Text>
                 </TouchableOpacity>
             </View>
 

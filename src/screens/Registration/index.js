@@ -1,35 +1,116 @@
-import React from 'react';
+import React , { useState} from 'react';
 
-import { View , Text ,TouchableOpacity} from 'react-native';
+import { Input } from 'react-native-elements';
+import IconMateria from 'react-native-vector-icons/MaterialIcons';
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
 
+import { View , SafeAreaView , ScrollView ,Text ,TouchableOpacity, ImageBackground} from 'react-native';
+import styles from './styles';
 
-export default function Registration({ navigation }) {
+export default function Registration({ navigation , route }) {
+
+    const imageMy = 'https://i.imgur.com/HI4tdb6.png';
+
     return (
-        <View 
-            style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}
-        >
-            <Text style={{ color: '#000' }}>Registro</Text>
+        <SafeAreaView>
+            <ScrollView  horizontal={false} showsVerticalScrollIndicator={true}>
+                <View style={ styles.box_top }>
+                    <TouchableOpacity
+                        style={styles.button_back}
+                        onPress={ () => { navigation.goBack() }}
+                    >
+                        <IconAntDesign
+                            name='back'
+                            size={27}
+                            color='black'
+                        />
+                    </TouchableOpacity>
 
-            <TouchableOpacity
-                style={{
-                    width: 200,
-                    height: 45,
-                    
-                    backgroundColor: '#eee23e',
-                    borderRadius: 5,
+                    <Text style={ styles.title }>Registra-se</Text>
+                </View>
+                <View style={ styles.container }>
+                    <View style={styles.container_social_media}>
+                        <TouchableOpacity style={styles.social_media}>
+                            <IconAntDesign
+                                name='google'
+                                size={40}
+                                color='#ea4335'
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.social_media}>
+                            <IconAntDesign
+                                name='apple1'
+                                size={40}
+                                color='#a6b1b7'
+                            />
+                        </TouchableOpacity>
+                    </View>
 
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    <Text style={styles.text}>Ou utilize seu email</Text>
 
-                }}
-                onPress={ () => { navigation.goBack() }}
-            >
-                <Text style={{ color: '#000' , fontSize: 20 }}> Voltar </Text>
-            </TouchableOpacity>
-        </View>
+                    <View style={styles.user_image}>
+                        <ImageBackground source={{uri: route.params ? route.params.image : imageMy }} style={styles.image_user} imageStyle={{
+                            borderRadius: 100, borderColor: '#e9e9e9',
+                        }}>
+                            <TouchableOpacity style={styles.add_image} 
+                                onPress={ () => {navigation.navigate('Camera')} }
+                            >
+                                <IconMateria
+                                    name='add-a-photo'
+                                    size={26}
+                                    color='black'
+                                />
+                            </TouchableOpacity>
+                        </ImageBackground>
+                    </View>
+
+                    <Input 
+                        containerStyle={ styles.inputs }
+                        label='Nome de Usuário'
+                        placeholder='Nome de Usuário'
+                        rightIcon={ 
+                            <IconMateria
+                                name='email'
+                                size={25}
+                                color='black'
+                            />
+                        }
+                        errorMessage='Email Inválido'
+                    />
+                    <Input 
+                        containerStyle={ styles.inputs }
+                        label='Email'
+                        placeholder='Email'
+                        rightIcon={ 
+                            <IconMateria
+                                name='email'
+                                size={25}
+                                color='black'
+                            />
+                        }
+                        errorMessage='Email Inválido'
+                    />
+                    <Input 
+                        containerStyle={ styles.inputs }
+                        label='Senha'
+                        placeholder='Senha'
+                        rightIcon={
+                            <IconMateria
+                                name='lock'
+                                size={25}
+                                color='black'
+                            />
+                        }
+                        errorMessage='Senha Inválida'
+                    />
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={ () => { navigation.navigate('Home') }}
+                    >
+                        <Text style={{ color: '#000' , fontSize: 20 }}>Cadastra-se</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
+        </SafeAreaView>
     )
 }

@@ -9,6 +9,7 @@ import HomeScreen from './screens/Home/index';
 import ChatsScreen from './screens/Chats/index';
 import NewContactScreen from './screens/NewContact/index';
 import RegistrationScreen from './screens/Registration/index';
+import CameraScreen from './screens/camera/index';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -99,6 +100,14 @@ export default function Navigation() {
             <Stack.Screen 
                 name="Home" 
                 component={HomeNavigation}
+                options={{
+                    headerShown: false,
+                    gesturesEnabled: false,
+                }}
+            />
+            <Stack.Screen 
+                name="Camera" 
+                component={CameraScreen}
                 options={{
                     headerShown: false,
                     gesturesEnabled: false,
