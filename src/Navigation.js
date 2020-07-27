@@ -6,6 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 import InitialScreen from './screens/Initial/index';
 import LoginScreen from './screens/Login/index';
 import HomeScreen from './screens/Home/index';
+import ChatsScreen from './screens/Chats/index';
 import NewContactScreen from './screens/NewContact/index';
 import RegistrationScreen from './screens/Registration/index';
 
@@ -48,7 +49,7 @@ function HomeNavigation() {
         >   
             <Tab.Screen 
                 name="Chat"
-                component={HomeScreen}
+                component={ChatsScreen}
                 options={{
                     title: 'Conversas'
                 }}
@@ -85,7 +86,7 @@ export default function Navigation() {
                 name="Login" 
                 component={LoginScreen}
                 options={{
-                    headerShown: false
+                    headerShown: false,
                 }}
             />
             <Stack.Screen 

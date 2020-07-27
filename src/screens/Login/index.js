@@ -26,10 +26,29 @@ export default function Login({ navigation }) {
             </View>
 
             <View style={ styles.container }>
+                <View style={styles.container_social_media}>
+                    <TouchableOpacity style={styles.social_media}>
+                        <IconAntDesign
+                            name='google'
+                            size={40}
+                            color='#ea4335'
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.social_media}>
+                        <IconAntDesign
+                            name='apple1'
+                            size={40}
+                            color='#a6b1b7'
+                        />
+                    </TouchableOpacity>
+                </View>
+
+                <Text style={styles.text}>Ou utilize seu email</Text>
+
                 <Input 
                     containerStyle={ styles.inputs }
                     placeholder='Email'
-                    rightIcon={
+                    rightIcon={ 
                         <IconMateria
                             name='email'
                             size={25}

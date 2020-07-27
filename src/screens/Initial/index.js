@@ -1,51 +1,56 @@
 import React from 'react';
+import styles from './styles';
 
-import { View , Text ,TouchableOpacity} from 'react-native';
+import { View , ImageBackground , Text ,TouchableOpacity} from 'react-native';
+import { ListItem } from 'react-native-elements';
 
 
 export default function Initial({ navigation }) {
     return (
-        <View 
-            style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}
-        >
-            <Text style={{ color: '#000' }}>Inicio</Text>
+        <View style={styles.container}>
+            
+            <View style={styles.back_ground}>
+                <ImageBackground source={require('../../../assets/img/imagem.jpg')} style={styles.background_image} blurRadius={1.5}>
+                    <View style={styles.box_logo}>
+                        <ImageBackground source={require('../../../assets/img/logo.png')} style={styles.logo}></ImageBackground>
+                    </View>
+                    <ListItem 
+                        leftAvatar={{
+                            source: { uri: 'https://i.imgur.com/gf6BsdT.jpg' },
+                            avatarStyle: {
+                                width: 40,
+                                height: 40,
 
-            <TouchableOpacity
-                style={{
-                    width: 200,
-                    height: 45,
-                    
-                    backgroundColor: '#eee23e',
-                    borderRadius: 5,
+                                margin: 0
+                            }
+                        }}
+                        title= 'Clebson Santos'
+                        subtitle='@cr0w1'
+                        titleStyle={{ color: '#fff' , fontSize: 12 }}
+                        subtitleStyle={{ color: '#fff' , fontSize: 10 }}
+                        containerStyle={ styles.avatar_container }
+                    />
+                </ImageBackground>
+            </View>
 
-                    justifyContent: 'center',
-                    alignItems: 'center',
+            <View style={styles.box_buttons}>
+                <TouchableOpacity
+                    style={styles.button_login}
+                    onPress={ () => { navigation.navigate('Login') }}
+                >
+                    <Text style={{ color: '#000' , fontSize: 20 }}> Login </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button_registration}
+                    onPress={ () => { navigation.navigate('Registration') }}
+                >
+                    <Text style={{ color: '#000' , fontSize: 20 }}> Registro </Text>
+                </TouchableOpacity>
+            </View>
 
-                }}
-                onPress={ () => { navigation.navigate('Login') }}
-            >
-                <Text style={{ color: '#000' , fontSize: 20 }}> Login </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={{
-                    width: 200,
-                    height: 45,
-                    
-                    backgroundColor: '#eee23e',
-                    borderRadius: 5,
-
-                    justifyContent: 'center',
-                    alignItems: 'center',
-
-                }}
-                onPress={ () => { navigation.navigate('Registration') }}
-            >
-                <Text style={{ color: '#000' , fontSize: 20 }}> REgistro </Text>
-            </TouchableOpacity>
+            <View style={styles.bottom_bar}>
+                <View style={styles.bar}></View>
+            </View>
         </View>
     )
 }
