@@ -1,18 +1,23 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator, HeaderStyleInterpolators } from '@react-navigation/stack';
 import { AntDesign } from '@expo/vector-icons';
 
+import InitialScreen from './screens/Initial/index';
+import LoginScreen from './screens/Login/index';
 import HomeScreen from './screens/Home/index';
 import NewContactScreen from './screens/NewContact/index';
+import RegistrationScreen from './screens/Registration/index';
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 const icons = {
     Chat: {
         lib: AntDesign,
         name: 'wechat'
     },
-    Home: {
+    Contacts: {
         lib: AntDesign,
         name: 'home'
     },
@@ -22,7 +27,7 @@ const icons = {
     }
 }
 
-export default function Navigation() {
+function HomeNavigation() {
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -39,6 +44,7 @@ export default function Navigation() {
                 activeTintColor: '#fff',
                 inactiveTintColor: '#92929C'
             }}
+            initialRouteName="Contacts"
         >   
             <Tab.Screen 
                 name="Chat"
@@ -48,7 +54,7 @@ export default function Navigation() {
                 }}
             />
             <Tab.Screen 
-                name="Home"
+                name="Contacts"
                 component={HomeScreen}
                 options={{
                     title: 'Contatos'
@@ -63,4 +69,40 @@ export default function Navigation() {
             />
         </Tab.Navigator>
     )
+}
+
+export default function Navigation() {
+    return (
+        <Stack.Navigator initialRouteName="Initial">
+            <Stack.Screen 
+                name="Initial" 
+                component={InitialScreen}
+                options={{
+                    headerShown: false
+                }}
+            />
+            <Stack.Screen 
+                name="Login" 
+                component={LoginScreen}
+                options={{
+                    headerShown: false
+                }}
+            />
+            <Stack.Screen 
+                name="Registration" 
+                component={RegistrationScreen}
+                options={{
+                    headerShown: false
+                }}
+            />
+            <Stack.Screen 
+                name="Home" 
+                component={HomeNavigation}
+                options={{
+                    headerShown: false,
+                    gesturesEnabled: false,
+                }}
+            />
+        </Stack.Navigator>
+    );
 }
