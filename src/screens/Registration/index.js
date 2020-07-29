@@ -10,7 +10,7 @@ import styles from './styles';
 export default function Registration({ navigation , route }) {
 
     const imageMy = 'https://i.imgur.com/HI4tdb6.png';
-
+    
     return (
         <SafeAreaView>
             <ScrollView  horizontal={false} showsVerticalScrollIndicator={true}>
@@ -53,7 +53,7 @@ export default function Registration({ navigation , route }) {
                             borderRadius: 100, borderColor: '#e9e9e9',
                         }}>
                             <TouchableOpacity style={styles.add_image} 
-                                onPress={ () => {navigation.navigate('Camera')} }
+                                onPress={ () => {navigation.navigate('Photo')} }
                             >
                                 <IconMateria
                                     name='add-a-photo'

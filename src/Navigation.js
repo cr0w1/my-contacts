@@ -1,6 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator, HeaderStyleInterpolators } from '@react-navigation/stack';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
 import { AntDesign } from '@expo/vector-icons';
 
 import InitialScreen from './screens/Initial/index';
@@ -9,10 +11,12 @@ import HomeScreen from './screens/Home/index';
 import ChatsScreen from './screens/Chats/index';
 import NewContactScreen from './screens/NewContact/index';
 import RegistrationScreen from './screens/Registration/index';
-import CameraScreen from './screens/camera/index';
+import CameraScreen from './screens/Camera/index';
+import GalleryScreen from './screens/Gallery/index';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+const TabMaterial = createMaterialTopTabNavigator();
 
 const icons = {
     Chat: {
@@ -73,6 +77,23 @@ function HomeNavigation() {
     )
 }
 
+function PhotoNavigation(){
+    return (
+        <TabMaterial.Navigator 
+            tabBarPosition='bottom'
+        >
+            <TabMaterial.Screen 
+                name="Camera" 
+                component={CameraScreen} 
+            />
+            <TabMaterial.Screen 
+                name="Gallery" 
+                component={GalleryScreen} 
+            />
+        </TabMaterial.Navigator>
+    )
+}
+
 export default function Navigation() {
     return (
         <Stack.Navigator initialRouteName="Initial">
@@ -106,8 +127,8 @@ export default function Navigation() {
                 }}
             />
             <Stack.Screen 
-                name="Camera" 
-                component={CameraScreen}
+                name="Photo" 
+                component={PhotoNavigation}
                 options={{
                     headerShown: false,
                     gesturesEnabled: false,
