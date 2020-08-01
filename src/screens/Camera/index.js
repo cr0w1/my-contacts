@@ -6,11 +6,12 @@ import styles from './styles';
 import { SafeAreaView ,Text, View , TouchableOpacity , ImageBackground , Modal } from 'react-native';
 import { Camera } from 'expo-camera';
 
-export default function CameraScreen({ navigation }) {
+export default function CameraScreen({ navigation , route }) {
     const camRef = useRef(null);
     const [ type , setType ] = useState(Camera.Constants.Type.front);
     const [ hasPermission, setHasPermission ] = useState(null);
     const [ capturedPhoto , setCapturedPhoto ] = useState(null);
+    const [ dataPhoto , setDataPhoto ] = useState(null);
     const [ openModal , setOpenModal ] = useState(false);
 
     useEffect(()=>{
@@ -31,7 +32,9 @@ export default function CameraScreen({ navigation }) {
     async function takePicture() {
         if(camRef){
             const data = await camRef.current.takePictureAsync();
+            console.log(data);
             setCapturedPhoto(data.uri);
+            setDataPhoto(data);
             setOpenModal(true);
         }
     }
@@ -97,7 +100,7 @@ export default function CameraScreen({ navigation }) {
                         </View>
 
                         <TouchableOpacity style={styles.button_select} 
-                            onPress={ () => { navigation.navigate('Registration' , {image: capturedPhoto} ) }}
+                            onPress={ () => route.params.page === true ? navigation.navigate('Registration' , {file: dataPhoto} ) : navigation.navigate('NewContact' , {file: dataPhoto } )}
                         >
                             <Text>Continuar</Text>
                         </TouchableOpacity>

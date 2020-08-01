@@ -25,7 +25,7 @@ export default function Initial({ navigation }) {
                             }
                         }}
                         title= 'Clebson Santos'
-                        subtitle='@cr0w1'
+                        subtitle='@cr0w01'
                         titleStyle={{ color: '#fff' , fontSize: 12 }}
                         subtitleStyle={{ color: '#fff' , fontSize: 10 }}
                         containerStyle={ styles.avatar_container }

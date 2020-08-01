@@ -9,33 +9,26 @@ import styles from './styles';
 
 export default function Registration({ navigation , route }) {
 
-    const imageMy = 'https://i.imgur.com/HI4tdb6.png';
-    
+    const imagePadrao = 'https://i.imgur.com/HI4tdb6.png';
+
+    const valoresIniciais = {
+        nome: ''
+    }
+    console.log(route.params);
     return (
         <SafeAreaView>
             <ScrollView  horizontal={false} showsVerticalScrollIndicator={true}>
                 <View style={ styles.box_top }>
-                    <TouchableOpacity
-                        style={styles.button_back}
-                        onPress={ () => { navigation.goBack() }}
-                    >
-                        <IconAntDesign
-                            name='back'
-                            size={27}
-                            color='black'
-                        />
-                    </TouchableOpacity>
-
                     <Text style={ styles.title }>Contato</Text>
                 </View>
                 <View style={ styles.container }>
 
                     <View style={styles.user_image}>
-                        <ImageBackground source={{uri: route.params ? route.params.image : imageMy }} style={styles.image_user} imageStyle={{
+                        <ImageBackground source={{uri: route.params ? route.params.image : imagePadrao }} style={styles.image_user} imageStyle={{
                             borderRadius: 100, borderColor: '#e9e9e9',
                         }}>
                             <TouchableOpacity style={styles.add_image} 
-                                onPress={ () => {navigation.navigate('Photo')} }
+                                onPress={ () => {navigation.navigate('Photo', {page: false})} }
                             >
                                 <IconMateria
                                     name='add-a-photo'
@@ -48,42 +41,24 @@ export default function Registration({ navigation , route }) {
 
                     <Input 
                         containerStyle={ styles.inputs }
-                        label='Nome de Usuário'
-                        placeholder='Nome de Usuário'
-                        rightIcon={ 
-                            <IconMateria
-                                name='email'
-                                size={25}
-                                color='black'
-                            />
-                        }
-                        errorMessage='Email Inválido'
+                        label='Nome'
+                        placeholder='Exp: Corol Ribeiro'
+                        errorMessage=""
+                        keyboardType="email-address"
                     />
                     <Input 
                         containerStyle={ styles.inputs }
-                        label='Email'
-                        placeholder='Email'
-                        rightIcon={ 
-                            <IconMateria
-                                name='email'
-                                size={25}
-                                color='black'
-                            />
-                        }
-                        errorMessage='Email Inválido'
+                        label='CPF'
+                        placeholder='Exp: 000.000.000-00'
+                        errorMessage=""
+                        keyboardType='numeric'
                     />
                     <Input 
                         containerStyle={ styles.inputs }
-                        label='Senha'
-                        placeholder='Senha'
-                        rightIcon={
-                            <IconMateria
-                                name='lock'
-                                size={25}
-                                color='black'
-                            />
-                        }
-                        errorMessage='Senha Inválida'
+                        label='Numero de Telefone'
+                        placeholder='Exp: (00) 00000-0000'
+                        errorMessage=""
+                        keyboardType='phone-pad'
                     />
                     <TouchableOpacity
                         style={styles.button}

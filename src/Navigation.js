@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator, HeaderStyleInterpolators } from '@react-navigation/stack';
+import { createStackNavigator} from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import { AntDesign } from '@expo/vector-icons';
@@ -33,7 +33,7 @@ const icons = {
     }
 }
 
-function HomeNavigation() {
+function HomeNavigation({route}){
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -41,30 +41,34 @@ function HomeNavigation() {
                     const { lib: Icon , name } = icons[route.name];
                     return <Icon name={name} size={size} color={color}/>;
                 },
+
             })}
             tabBarOptions={{
                 style: {
-                    backgroundColor: '#131418',
+                    backgroundColor: '#fff',
                     borderTopColor: 'rgba(255,255,255, 0.2)',
                 },
-                activeTintColor: '#fff',
-                inactiveTintColor: '#92929C'
+                activeTintColor: '#000',
+                inactiveTintColor: '#bdbebd'
             }}
             initialRouteName="Contacts"
+            
         >   
-            <Tab.Screen 
+            {/* <Tab.Screen 
                 name="Chat"
                 component={ChatsScreen}
                 options={{
-                    title: 'Conversas'
+                    title: 'Conversas',
                 }}
-            />
+
+            /> */}
             <Tab.Screen 
                 name="Contacts"
                 component={HomeScreen}
                 options={{
                     title: 'Contatos'
                 }}
+                initialParams={route.params}
             />
             <Tab.Screen 
                 name="NewContact"
@@ -77,7 +81,7 @@ function HomeNavigation() {
     )
 }
 
-function PhotoNavigation(){
+function PhotoNavigation({route}){
     return (
         <TabMaterial.Navigator 
             tabBarPosition='bottom'
@@ -85,10 +89,12 @@ function PhotoNavigation(){
             <TabMaterial.Screen 
                 name="Camera" 
                 component={CameraScreen} 
+                initialParams={route.params}
             />
             <TabMaterial.Screen 
                 name="Gallery" 
-                component={GalleryScreen} 
+                component={GalleryScreen}
+                initialParams={route.params}
             />
         </TabMaterial.Navigator>
     )
@@ -120,18 +126,16 @@ export default function Navigation() {
             />
             <Stack.Screen 
                 name="Home" 
-                component={HomeNavigation}
+                children={HomeNavigation}
                 options={{
-                    headerShown: false,
-                    gesturesEnabled: false,
+                    headerShown: false
                 }}
             />
             <Stack.Screen 
                 name="Photo" 
                 component={PhotoNavigation}
                 options={{
-                    headerShown: false,
-                    gesturesEnabled: false,
+                    headerShown: false
                 }}
             />
         </Stack.Navigator>

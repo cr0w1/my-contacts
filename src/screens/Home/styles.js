@@ -6,13 +6,28 @@ const styles = StyleSheet.create({
     height: 50,
 
     marginTop: 22,
-    backgroundColor: '#fff4',
+    backgroundColor: '#fff',
 
     flexDirection: "row",
-    justifyContent: "flex-end",
     alignItems: "center",
 
-    padding: 10
+    padding: 10,
+
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(0,0,0, 0.1)'
+  },
+  title_page: {
+    width: '50%',
+
+    fontSize: 18,
+    fontStyle: "italic"
+  },
+  box_avatar_user: {
+    width: '50%',
+
+    alignItems:"flex-end",
+
+    padding: 5
   }
 })
 

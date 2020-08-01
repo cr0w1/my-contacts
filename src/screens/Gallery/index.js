@@ -1,14 +1,14 @@
 import React , { useState , useEffect } from 'react';
 
-import { FlatList ,Text , SafeAreaView , View , ScrollView ,Button , TouchableOpacity , Image} from 'react-native';
-import { ListItem } from 'react-native-elements';
+import { FlatList , SafeAreaView , TouchableOpacity , Image} from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as MediaLibrary from 'expo-media-library';
 
-export default function Gallery({ navigation }){
+export default function Gallery({ navigation , route }){
 
     const [ hasPermission , setHasPermission] = useState(null);
     const [ image , setImage ] = useState(null);
+    const [ teste , setTeste ] = useState(15);
 
     useEffect(()=>{
         (async () => {
@@ -18,8 +18,12 @@ export default function Gallery({ navigation }){
     }, []); 
 
     const options = {
-        first: 15,
+        first: teste,
     }
+
+    async function add() {
+        setTeste(teste + 10);
+    } 
 
     if(hasPermission === true ){
         async function mediaLibraryAsync(){
@@ -31,6 +35,14 @@ export default function Gallery({ navigation }){
     }
 
     const data = image;
+
+    // Redirect Image
+    async function getImage(url){
+        const uri = {
+            uri: url
+        };
+        route.params.page === true ? navigation.navigate('Registration' , {file: uri} ) : navigation.navigate('NewContact' , {file: uri} );
+    }
     
     return (
         <SafeAreaView style={{
@@ -44,7 +56,9 @@ export default function Gallery({ navigation }){
                 }}
                 data={data}
                 numColumns={3}
-                renderItem={( {item} ) => <TouchableOpacity style={{padding: 10}} onPress={() => {navigation.navigate('Registration'),{ image: item.uri }}}><Image source={{uri: item.uri}} style={{width: 100 , height: 100 }}/></TouchableOpacity>}
+                renderItem={( {item} ) => <TouchableOpacity style={{padding: 10}} onPress={() =>{getImage(item.uri)}}><Image source={{uri: item.uri}} style={{width: 100 , height: 100 }}/></TouchableOpacity>}
+                onEndReached={add}
+                onEndReachedThreshold={0.7}
             />
         </SafeAreaView>
     );

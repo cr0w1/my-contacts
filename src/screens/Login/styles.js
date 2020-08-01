@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     box_top:{
         textAlign: "left",
-        height: '29%',
+        height: '15%',
         marginTop: '10%'
     },
     button_back:{
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     container:{
         justifyContent: "center",
         alignItems:"center",
+        height: 450
 
     },
     
