@@ -12,7 +12,7 @@ Download the project.
 Inside the folder we downloaded, open a console and run the command below to download all the dependencies that the application needs.
 
 ```bash
-    $ npm intall -D
+    $ npm install -D
 ```
  After installing the dependencies and the ***[Expo CLI](https://docs.expo.io/workflow/expo-cli/)*** is installed, just run the code below to start the project.
 
