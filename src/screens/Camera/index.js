@@ -10,7 +10,6 @@ export default function CameraScreen({ navigation , route }) {
     const camRef = useRef(null);
     const [ type , setType ] = useState(Camera.Constants.Type.front);
     const [ hasPermission, setHasPermission ] = useState(null);
-    const [ capturedPhoto , setCapturedPhoto ] = useState(null);
     const [ dataPhoto , setDataPhoto ] = useState(null);
     const [ openModal , setOpenModal ] = useState(false);
 
@@ -32,12 +31,20 @@ export default function CameraScreen({ navigation , route }) {
     async function takePicture() {
         if(camRef){
             const data = await camRef.current.takePictureAsync();
-            console.log(data);
-            setCapturedPhoto(data.uri);
             setDataPhoto(data);
             setOpenModal(true);
         }
     }
+
+    function redirect(){
+        if(route.params.page === 'registration'){
+            navigation.navigate('Registration' , {file: dataPhoto} );
+        }else if(route.params.page === 'newcontact'){
+            navigation.navigate('NewContact' , {file: dataPhoto } );
+        }else if(route.params.page === 'edite'){
+            navigation.navigate('EditContacts' , {file: dataPhoto } );
+        }
+    } 
 
     return (
         <SafeAreaView style={styles.container}>
@@ -73,7 +80,7 @@ export default function CameraScreen({ navigation , route }) {
                 </View>
             </Camera>
 
-            {capturedPhoto &&
+            {dataPhoto &&
                 <Modal
                     animationType='slide'
                     transparent={false}
@@ -93,14 +100,14 @@ export default function CameraScreen({ navigation , route }) {
 
                     <View style={styles.box_image}>
                         <View style={styles.user_image}>
-                            <ImageBackground source={{uri: capturedPhoto }} style={styles.image_user} imageStyle={{
+                            <ImageBackground source={{uri: dataPhoto.uri }} style={styles.image_user} imageStyle={{
                                 borderRadius: 135, borderColor: '#e9e9e9',
                             }}>
                             </ImageBackground>
                         </View>
 
                         <TouchableOpacity style={styles.button_select} 
-                            onPress={ () => route.params.page === true ? navigation.navigate('Registration' , {file: dataPhoto} ) : navigation.navigate('NewContact' , {file: dataPhoto } )}
+                            onPress={ () => redirect()}
                         >
                             <Text>Continuar</Text>
                         </TouchableOpacity>

@@ -1,7 +1,7 @@
 import React , {useState , useEffect } from 'react';
 import axios from 'axios';
 
-import FlashMessage from "react-native-flash-message";
+import FlashMessage, { showMessage , hideMessage } from "react-native-flash-message";
 
 import { Input } from 'react-native-elements';
 import IconMateria from 'react-native-vector-icons/MaterialIcons';
@@ -26,27 +26,31 @@ export default function Login({ navigation , route}) {
 
    const [ getEmail , setEmail ] = useState('');
    const [ getSenha , setSenha ] = useState('');
-   const [ mSuccess , setMSuccess ] = useState(null);
 
    const [ error , setError ] = useState('');
 
-   useEffect(() => {
-      setMSuccess(route.params != undefined ? route.params.create : false );
-   });
-
    // useEffect(() => {
-   //    if(mSuccess == true){
-   //       return (
-   //          <FlashMessage 
-   //             position='top'
-   //             message='Cadastro realizado com sucesso , faça login e desfrute de nosso app!'
-   //             type='success'
-   //             floating={true}
-   //             duration={2000}
-   //          />
-   //       )
-   //    }
-   // },[]);
+   //    (() => {
+   //       navigation.addListener('beforeRemove', (e) => {
+   //          e.preventDefault();
+   //       }),[navigation]
+   //    })();
+   // });
+
+   useEffect(() => {
+      (()=>{
+         if(route.params && route.params.create === true){
+            showMessage({
+               message: "Registro concluido!",
+               description: "Faça login e desfrute de nossos serviços.",
+               type: "success",
+               duration: 5000,
+               animated: true,
+               icon: "success",
+            });
+         }
+      })()
+   },[]);
 
    async function login(){
 
@@ -71,11 +75,12 @@ export default function Login({ navigation , route}) {
 
    return (
       <SafeAreaView >
+         <FlashMessage position="bottom" floating={true}/>
          <ScrollView>
             <View style={ styles.box_top }>
                   <TouchableOpacity
                      style={styles.button_back}
-                     onPress={ () => { navigation.goBack() }}
+                     onPress={ () => { navigation.navigate('Initial') }}
                   >
                      <IconAntDesign
                         name='back'
@@ -89,7 +94,7 @@ export default function Login({ navigation , route}) {
 
             <View style={ styles.container }>
                   <View style={styles.container_social_media}>
-                     <TouchableOpacity style={styles.social_media}>
+                     {/* <TouchableOpacity style={styles.social_media}>
                         <IconAntDesign
                               name='google'
                               size={40}
@@ -102,10 +107,10 @@ export default function Login({ navigation , route}) {
                               size={40}
                               color='#a6b1b7'
                         />
-                     </TouchableOpacity>
+                     </TouchableOpacity> */}
                   </View>
 
-                  <Text style={styles.text}>Ou utilize seu email</Text>
+                  {/* <Text style={styles.text}>Ou utilize seu email</Text> */}
 
                   <Input 
                      containerStyle={ styles.inputs }
@@ -143,6 +148,7 @@ export default function Login({ navigation , route}) {
                   <TouchableOpacity
                      style={styles.button}
                      onPress={ () => login() }
+
                   >
                      <Text style={{ color: '#000' , fontSize: 20 }}> Entrar</Text>
                   </TouchableOpacity>

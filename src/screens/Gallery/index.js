@@ -41,8 +41,16 @@ export default function Gallery({ navigation , route }){
         const uri = {
             uri: url
         };
-        route.params.page === true ? navigation.navigate('Registration' , {file: uri} ) : navigation.navigate('NewContact' , {file: uri} );
+
+        if(route.params.page === 'registration'){
+            navigation.navigate('Registration' , {file: uri } );
+        }else if(route.params.page === 'newcontact'){
+            navigation.navigate('NewContact' , {file: uri } );
+        }else if(route.params.page === 'edite'){
+            navigation.navigate('EditContacts' , {file: uri } );
+        }
     }
+    
     
     return (
         <SafeAreaView style={{

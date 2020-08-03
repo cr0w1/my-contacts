@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
         fontSize: 35,
         fontWeight: '600',
         marginTop: '8%',
-        marginLeft: 10
+        marginLeft: 10,
+        fontStyle: "italic"
     },
     container:{
         justifyContent: "center",

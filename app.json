@@ -4,9 +4,9 @@
     "slug": "myContactsApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/img/logo.png",
     "splash": {
-      "image": "./assets/img/logo.png",
+      "image": "./assets/img/logo-01.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -18,6 +18,10 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.yourcompany.yourappname",
+      "versionCode": 0  
     },
     "web": {
       "favicon": "./assets/favicon.png"

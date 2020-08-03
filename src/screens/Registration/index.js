@@ -19,7 +19,6 @@ import {
 import styles from './styles';
 
 import firebase from '../../firebase';
-import { storage } from 'firebase';
 
 export default function Registration({ navigation , route }) {
 
@@ -32,58 +31,73 @@ export default function Registration({ navigation , route }) {
    const [ getEmail , setEmail ] = useState('');
    const [ getPassword , setPassword ] = useState('');
 
+   const [ erroName, setErroName ] = useState('');
+   const [ erroEmail , setErroEmail ] = useState('');
+   const [ erroSenha , setErroSenha ] = useState('');
+
    useEffect(()=>{
       setFile(route.params != undefined ? route.params.file.uri: 'https://i.imgur.com/HI4tdb6.png' );
    })
       
    async function uploadImage(){
-      try {
-         setOpenModal(true);
-         const fileName = Date.now();
-         
-         const blob = await new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            xhr.onload = function() {
-              resolve(xhr.response);
-           };
-           xhr.onerror = function() {
-             reject(new TypeError('Network request failed'));
-           };
-           xhr.responseType = 'blob'; 
-           xhr.open('GET', getFile, true); 
-           xhr.send(null);
-         });
+      if( getName === ''){
+         setErroName('O Campo Nome é obrigatório.');
+      }else if( getEmail === ''){
+         setErroEmail('O Campo Email é obrigatório.');
+      }else if(getPassword == ''){
+         setErroSenha('O Campo Senha é obrigatório.');
+      }else{
+         setErroName('');
+         setErroEmail('');
+         setErroSenha('');
+         try {
+            setOpenModal(true);
+            const fileName = Date.now();
+            
+            const blob = await new Promise((resolve, reject) => {
+               const xhr = new XMLHttpRequest();
+               xhr.onload = function() {
+                 resolve(xhr.response);
+              };
+              xhr.onerror = function() {
+                reject(new TypeError('Network request failed'));
+              };
+              xhr.responseType = 'blob'; 
+              xhr.open('GET', getFile, true); 
+              xhr.send(null);
+            });
+      
+            const ref = firebase.storage().ref().child('images/'+ fileName);
+      
+            const upload = await ref.put(blob);
    
-         const ref = firebase.storage().ref().child('images/'+ fileName);
+            const remoteUri = await upload.ref.getDownloadURL();
    
-         const upload = await ref.put(blob);
-
-         const remoteUri = await upload.ref.getDownloadURL();
-
-         blob.close();
-
-         await axios.post('https://api-clebson.herokuapp.com/user', {
-            name: getName,
-            email: getEmail,
-            password: getPassword,
-            url: remoteUri
-         })
-         .then(function (response) {
-            if(response.data.success === true){
+            blob.close();
+   
+            await axios.post('https://api-clebson.herokuapp.com/user', {
+               name: getName,
+               email: getEmail,
+               password: getPassword,
+               url: remoteUri
+            })
+            .then(function (response) {
+               if(response.data.success === true){
+                  setOpenModal(false);
+                  navigation.navigate('Login' , {create: true});
+               }else{
+                  setOpenModal(false);
+                  console.log('Não foi Posivel salvar!!');
+               }
+            })
+            .catch(function (error) {
+               console.log('erro da req da minha API ',error);
                setOpenModal(false);
-               navigation.navigate('Login' , {create: true});
-            }else{
-               setOpenModal(false);
-               console.log('Não foi Posivel salvar!!');
-            }
-         })
-         .catch(function (error) {
-            console.log('erro da req da minha API ',error);
-            setOpenModal(false);
-         })
-
-      } catch (error) {
-         console.log('erro catch ',error);
+            })
+   
+         } catch (error) {
+            console.log('erro catch ',error);
+         }
       }
       
    }
@@ -93,7 +107,7 @@ export default function Registration({ navigation , route }) {
       console.log('chamei outra vez');
       uploadImage();
    }
-
+   console.disableYellowBox = true;
    return (
       <SafeAreaView>
          <ScrollView  horizontal={false} showsVerticalScrollIndicator={true}>
@@ -112,7 +126,7 @@ export default function Registration({ navigation , route }) {
                   <Text style={ styles.title }>Registra-se</Text>
                </View>
                <View style={ styles.container }>
-                  <View style={styles.container_social_media}>
+                  {/* <View style={styles.container_social_media}>
                      <TouchableOpacity style={styles.social_media}>
                            <IconAntDesign
                               name='google'
@@ -127,16 +141,16 @@ export default function Registration({ navigation , route }) {
                               color='#a6b1b7'
                            />
                      </TouchableOpacity>
-                  </View>
+                  </View> */}
 
-                  <Text style={styles.text}>Ou utilize seu email</Text>
+                  {/* <Text style={styles.text}>Ou utilize seu email</Text> */}
 
                   <View style={styles.user_image}>
                      <ImageBackground source={{uri: route.params != undefined ? route.params.file.uri : 'https://i.imgur.com/HI4tdb6.png'}} style={styles.image_user} imageStyle={{
                            borderRadius: 100, borderColor: '#e9e9e9',
                      }}>
                            <TouchableOpacity style={styles.add_image} 
-                              onPress={ () => {navigation.navigate('Photo', {page: true} )} }
+                              onPress={ () => {navigation.navigate('Photo', {page: 'registration'} )} }
                            >
                               <IconMateria
                                  name='add-a-photo'
@@ -156,6 +170,8 @@ export default function Registration({ navigation , route }) {
                      onChangeText={text => setName(text)}
 
                      maxLength={50}
+
+                     errorMessage={erroName}
                   />
                   <Input 
                      containerStyle={ styles.inputs }
@@ -166,6 +182,8 @@ export default function Registration({ navigation , route }) {
                      onChangeText={text => setEmail(text)}
 
                      maxLength={100}
+
+                     errorMessage={erroEmail}
                   />
                   <Input 
                      containerStyle={ styles.inputs }
@@ -177,6 +195,8 @@ export default function Registration({ navigation , route }) {
 
                      secureTextEntry={true}
                      maxLength={20}
+
+                     errorMessage={erroSenha}
                   />
                   <TouchableOpacity
                      style={styles.button}
@@ -205,7 +225,7 @@ export default function Registration({ navigation , route }) {
                      width: 200,
                      height: 200
                   }}
-                  source={{uri: 'https://thumbs.gfycat.com/PlumpAdolescentArmyant-size_restricted.gif'}}
+                  source={{uri: 'https://i.pinimg.com/originals/2c/bb/5e/2cbb5e95b97aa2b496f6eaec84b9240d.gif'}}
                />
                <Text style={{
                   fontSize: 18,

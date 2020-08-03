@@ -17,53 +17,20 @@ const styles = StyleSheet.create({
     },
     title:{
         color: '#000',
-        fontSize: 35,
+        fontSize: 30,
         fontWeight: '600',
         marginTop: '8%',
-        marginLeft: 10
+        marginLeft: 10,
+
+        fontStyle: "italic"
     },
     container:{
         justifyContent: "center",
         alignItems:"center",
 
-        height: 650
-    },
-    
-    container_social_media: {
-        justifyContent: 'center',
-        alignItems: "center",
-        flexDirection: "row",
-    },
-    social_media: {
-        justifyContent: "center",
-        alignItems: "center",
+        height: 600,
 
-        width: 60,
-        height: 60,
-        borderRadius: 30,
-
-        margin: 10,
-
-        borderWidth: 2,
-        borderColor: '#e9e9e9',
-
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 3,
-        },
-        shadowOpacity: 0.27,
-        shadowRadius: 4.65,
-
-        elevation: 1,
-    },
-
-    text: {
-        color: '#000',
-        fontSize: 16,
-        fontWeight: '600',
-        marginTop: 6,
-        marginLeft: 10
+        marginTop: '20%'
     },
 
     user_image: {
@@ -76,9 +43,8 @@ const styles = StyleSheet.create({
         borderColor: '#e9e9e9',
         borderRadius: 100,
 
-        margin: 20,
-        marginBottom: 35,
-        marginTop: '30%',
+        margin: 30,
+        marginBottom: 35
     },
     image_user: {
         position: 'relative',
@@ -113,14 +79,47 @@ const styles = StyleSheet.create({
     inputs: {
         width: 300,
     },
-    button: {
-        width: 200,
-        height: 50,
-        marginTop: 10,
-        backgroundColor: '#65abd6',
+    box_buttons: {
+    justifyContent: 'center',
+    alignItems: "center",
+    flexDirection: "row",
+
+    marginTop: 10
+    },
+
+    button_login: {
+        width: 135,
+        height: 45,
+        
+        borderColor: '#000',
         borderRadius: 5,
+
         justifyContent: 'center',
         alignItems: 'center',
+
+        margin: 8,
+
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+
+        elevation: 2,
+    },
+    button_registration: {
+        width: 135,
+        height: 45,
+        
+        backgroundColor: '#65abd6',
+        borderRadius: 5,
+
+        justifyContent: 'center',
+        alignItems: 'center',
+
+        margin: 8,
 
         shadowColor: "#000",
         shadowOffset: {
@@ -131,7 +130,11 @@ const styles = StyleSheet.create({
         shadowRadius: 4.65,
 
         elevation: 1,
+    },
+    teste: {
+        width: 20,
+        height: 20
     }
-});
+})
 
 export default styles;
