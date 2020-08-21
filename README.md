@@ -1,5 +1,5 @@
 # My Contacts
-Application to save contacts, in future updates it will be possible to chat with the contacts who have an account in the app and the ones you saved. To download the API used, just access the link ***[MyContacts](https://github.com/cr0w1/my-contacts)***.
+Application to save contacts, in future updates it will be possible to chat with the contacts who have an account in the app and the ones you saved. To download the API used, just access the link ***[MyContacts](https://github.com/cr0w1/my-contacts-api)***.
 
 ### How to use
 Download the project.
